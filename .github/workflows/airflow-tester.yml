@@ -15,6 +15,6 @@ jobs:
       - name: Build Docker Image
         run: docker build . -t tester:latest
       - name: Run Docker 
-        run: docker run -e TESTS_FOLDER=tests -e DAG_FOLDER=dags -v /airflow/:/work/github-data-flow-example/github-data-flow-example/ tester:latest
+        run: docker run -e TESTS_FOLDER=tests -e DAG_FOLDER=dags -v /airflow/:/work/github-data-flow-example/github-data-flow-example tester:latest
 
 

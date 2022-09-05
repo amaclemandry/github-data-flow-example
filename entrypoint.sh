@@ -1,8 +1,8 @@
 #!/bin/sh
-export AIRFLOW_HOME="/airflow/$DAG_FOLDER"
+export AIRFLOW_HOME="/airflow"
 
 a=0;
-for file in $(ls $AIRFLOW_HOME/*.py); do 
+for file in $(ls $AIRFLOW_HOME/$DAG_FOLDER/*.py); do 
     echo "******** Execute lint on $file"
     flake8  --ignore E501 $file --benchmark -v  
     echo "******** End of lint on $file"
@@ -15,12 +15,17 @@ for file in $(ls $AIRFLOW_HOME/*.py); do
     echo "******** End python on $file"
     
     echo "******** Execute  black on $file"
-    pytest $file --black -v  
+    pytest $file --black -v --disable-warnings
     echo "******** End of lint on $file"
 done
 
+
+ls -la /airflow/dags
+echo "$AIRFLOW_HOME/$DAG_FOLDER/$TESTS_FOLDER"
+ls -la $AIRFLOW_HOME/$DAG_FOLDER/$TESTS_FOLDER/*
+
 echo "******** Execute test on all dags in folder"
-pytest $AIRFLOW_HOME/$TESTS_FOLDER/* 
+pytest $AIRFLOW_HOME/$DAG_FOLDER/$TESTS_FOLDER/*.py --disable-warnings
 if [[ $? == 1 ]] ; then
     a=1;
 fi
@@ -28,5 +33,6 @@ fi
 if [[ $a == 1 ]] ; then
     echo "There are tests that failed"
 fi
+
 
 return $a
