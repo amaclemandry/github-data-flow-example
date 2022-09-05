@@ -16,7 +16,8 @@ jobs:
         run: |-
           pip install pytest flake8 apache-airflow 
       - name: Execute Linter
-        run: flake8 dags/*.py
+        continue-on-error: true
+        run: flake8 dags/*.py 
       - name: Execute Python
         run: python *.py
       - name: Execute tests
