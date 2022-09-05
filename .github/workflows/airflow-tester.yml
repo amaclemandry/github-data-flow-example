@@ -1,0 +1,23 @@
+name: Github Actions Linter
+on:
+  pull_request: 
+    branches: [develop, staging, master]
+    types: [opened, synchronize]
+  pull:
+    branches: [develop, staging, master]
+
+jobs:
+  main:
+    name: Test DAG
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install airflow
+        run: |-
+          pip install pytest flake8 apache-airflow 
+      - name: Execute Linter
+        run: flake8 dags/*.py
+      - name: Execute Python
+        run: python *.py
+      - name: Execute tests
+        run: pytest tests/*.py
