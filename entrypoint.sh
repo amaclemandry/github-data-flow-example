@@ -1,6 +1,6 @@
 #!/bin/sh
-export AIRFLOW_HOME="/github/workspace/$1"
-airflow db init
+export AIRFLOW_HOME="/github/workspace/$DAG_FOLDER"
+
 a=0;
 for file in $(ls *.py); do 
     echo "******** Execute lint on $file"
@@ -8,19 +8,19 @@ for file in $(ls *.py); do
     echo "******** End of lint on $file"
 
     echo "******** Execute python on $file"
-    python $AIRFLOW_HOME/$1/$file ; 
+    python $AIRFLOW_HOME/$DAG_FOLDER/$file ; 
     if [[ $? == 1 ]] ; then
         a=1;
     fi
     echo "******** End python on $file"
     
     echo "******** Execute  black on $file"
-    pytest $AIRFLOW_HOME/$1/$file --black -v  
+    pytest $AIRFLOW_HOME/$DAG_FOLDER/$file --black -v  
     echo "******** End of lint on $file"
 done
 
 echo "******** Execute test on all dags in folder"
-pytest $AIRFLOW_HOME/$2/* 
+pytest $AIRFLOW_HOME/$TESTS_FOLDER/* 
 if [[ $? == 1 ]] ; then
     a=1;
 fi
