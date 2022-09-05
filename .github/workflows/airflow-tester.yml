@@ -19,6 +19,6 @@ jobs:
         continue-on-error: true
         run: flake8 dags/*.py 
       - name: Execute Python
-        run: python *.py
+        run: python dags/*.py
       - name: Execute tests
         run: pytest tests/*.py
