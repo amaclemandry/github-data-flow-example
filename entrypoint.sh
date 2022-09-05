@@ -1,5 +1,5 @@
 #!/bin/sh
-export AIRFLOW_HOME="/github/workspace/$DAG_FOLDER"
+export AIRFLOW_HOME="/airflow/$DAG_FOLDER"
 
 a=0;
 for file in $(ls $AIRFLOW_HOME/*.py); do 
