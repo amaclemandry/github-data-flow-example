@@ -2,9 +2,9 @@
 export AIRFLOW_HOME="/github/workspace/$DAG_FOLDER"
 
 a=0;
-for file in $(ls *.py); do 
+for file in $(ls $AIRFLOW_HOME/*.py); do 
     echo "******** Execute lint on $file"
-    flake8  --ignore E501 $AIRFLOW_HOME/$1/$file --benchmark -v  
+    flake8  --ignore E501 $AIRFLOW_HOME/$DAG_FOLDER/$file --benchmark -v  
     echo "******** End of lint on $file"
 
     echo "******** Execute python on $file"
