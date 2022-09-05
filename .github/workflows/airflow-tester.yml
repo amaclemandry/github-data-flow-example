@@ -14,12 +14,17 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install airflow
         run: |-
-          pip install pytest flake8 apache-airflow 
-          airflow db init
-      - name: Execute Linter
+          pip install pytest pytest-black flake8 apache-airflow 
+          
+      - name: Build Docker Image
+        run: flake8  --ignore E501 dags --benchmark -v 
         continue-on-error: true
-        run: flake8 dags/*.py 
+      - name: Build Docker Image
+        run: pytest dags --black -v 
+        continue-on-error: true
       - name: Execute Python
         run: python dags/*.py
       - name: Execute tests
         run: pytest tests/*.py
+
+
