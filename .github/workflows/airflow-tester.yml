@@ -15,6 +15,7 @@ jobs:
       - name: Install airflow
         run: |-
           pip install pytest flake8 apache-airflow 
+          airflow db init
       - name: Execute Linter
         continue-on-error: true
         run: flake8 dags/*.py 
