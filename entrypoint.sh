@@ -4,18 +4,18 @@ export AIRFLOW_HOME="/airflow/$DAG_FOLDER"
 a=0;
 for file in $(ls $AIRFLOW_HOME/*.py); do 
     echo "******** Execute lint on $file"
-    flake8  --ignore E501 $AIRFLOW_HOME/$DAG_FOLDER/$file --benchmark -v  
+    flake8  --ignore E501 $file --benchmark -v  
     echo "******** End of lint on $file"
 
     echo "******** Execute python on $file"
-    python $AIRFLOW_HOME/$DAG_FOLDER/$file ; 
+    python $file ; 
     if [[ $? == 1 ]] ; then
         a=1;
     fi
     echo "******** End python on $file"
     
     echo "******** Execute  black on $file"
-    pytest $AIRFLOW_HOME/$DAG_FOLDER/$file --black -v  
+    pytest $file --black -v  
     echo "******** End of lint on $file"
 done
 
