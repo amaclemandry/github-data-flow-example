@@ -17,7 +17,6 @@ RUN pip3 install --no-cache-dir cython wheel pytest flake8
 RUN pip3 install pytest pytest-black flake8 apache-airflow 
 RUN  mkdir -p /airflow/dags/generic_tests /airflow/dags/tests
 COPY dags/user_processing.py /airflow/dags/
-COPY tests/* /airflow/dags/generic_tests/  
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
