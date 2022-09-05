@@ -6,7 +6,8 @@ from airflow.operators.bash import BashOperator
 
 from datetime import datetime
 from random import randint
-def _choosing_best_model(ti):    
+def _choosing_best_model(ti):
+
     accuracies = ti.xcom_pull(task_ids=[
         'training_model_A',
         'training_model_B',
@@ -22,7 +23,8 @@ def _training_model(model):
 
     return randint(1, 10)
 
-with DAG("my_dag",start_date=datetime(2021, 1 ,1), schedule_interval='@daily', catchup=False) as dag:
+with DAG("my_dag", start_date=datetime(2021, 1 ,1),
+schedule_interval='@daily', catchup=False) as dag:
 
     training_model_tasks = [
         PythonOperator(
@@ -31,7 +33,7 @@ with DAG("my_dag",start_date=datetime(2021, 1 ,1), schedule_interval='@daily', c
             op_kwargs={
             "model": model_id
             }
-        ) 
+        )
         for model_id in ['A', 'B', 'C']
     ]
     choosing_best_model = BranchPythonOperator(
