@@ -223,5 +223,7 @@ cython_debug/
 
 
 **/logs/**
-*.cfg
+**/*.cfg
+**/airflow.db
+**/webserver_config.py
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,python
