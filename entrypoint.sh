@@ -15,12 +15,12 @@ for file in $(ls $AIRFLOW_HOME/$DAG_FOLDER/*.py); do
     echo "******** End python on $file"
     
     echo "******** Execute  black on $file"
-    pytest $file --black -v --disable-warnings
+    pytest $file --black -v  -W ignore::DeprecationWarning
     echo "******** End of lint on $file"
 done
 
 echo "******** Execute test on all dags in folder"
-pytest $AIRFLOW_HOME/$DAG_FOLDER/$TESTS_FOLDER/*.py --disable-warnings
+pytest $AIRFLOW_HOME/$DAG_FOLDER/$TESTS_FOLDER/*.py -v -W ignore::DeprecationWarning
 if [[ $? == 1 ]] ; then
     a=1;
 fi
